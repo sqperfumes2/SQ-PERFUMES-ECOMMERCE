@@ -2,6 +2,11 @@ const { v2: cloudinary } = require('cloudinary');
 const { env } = require('./env');
 
 function configureCloudinary() {
+  if (env.CLOUDINARY_URL) {
+    cloudinary.config({ url: env.CLOUDINARY_URL });
+    return true;
+  }
+
   if (!env.CLOUDINARY_CLOUD_NAME || !env.CLOUDINARY_API_KEY || !env.CLOUDINARY_API_SECRET) {
     return false;
   }
