@@ -1,0 +1,20 @@
+# SQ Perfumes storefront
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Disallow account / checkout flows from indexing
+Disallow: /cart
+Disallow: /checkout
+Disallow: /order-success
+Disallow: /account
+Disallow: /login
+Disallow: /register
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /wishlist
+Disallow: /search
+
+Sitemap: https://www.sqperfumes.com/sitemap.xml

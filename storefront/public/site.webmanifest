@@ -1,0 +1,10 @@
+{
+  "name": "SQ Perfumes",
+  "short_name": "SQ",
+  "description": "Official SQ Perfumes perfume store in Pakistan.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "lang": "en-PK"
+}
