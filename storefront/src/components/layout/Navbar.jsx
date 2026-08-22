@@ -80,7 +80,7 @@ export default function Navbar() {
 
           <Link
             to="/"
-            className="flex min-w-0 flex-1 items-center justify-center gap-2 sm:gap-3 md:flex-none md:justify-start"
+            className="flex min-w-0 flex-1 items-center justify-center md:flex-none md:justify-start"
             aria-label={`${brand.name} home`}
           >
             <img
@@ -90,14 +90,6 @@ export default function Navbar() {
               width={48}
               height={48}
             />
-            <div className="min-w-0">
-              <p className="font-display text-xs tracking-[0.18em] text-gold-bright sm:text-sm sm:tracking-[0.22em] md:tracking-[0.28em] md:text-base">
-                {brand.shortName}
-              </p>
-              <p className="text-[9px] uppercase tracking-[0.28em] text-muted sm:text-[10px] sm:tracking-[0.3em]">
-                Fragrance
-              </p>
-            </div>
           </Link>
 
           <nav className="hidden items-center gap-4 xl:gap-5 lg:flex" aria-label="Primary">
