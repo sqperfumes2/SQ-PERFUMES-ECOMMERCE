@@ -59,7 +59,7 @@ export default function HeroSection({ homepage }) {
             text={subtitle}
             className="mt-4 max-w-xl text-sm leading-relaxed text-muted sm:mt-5 sm:text-base md:text-lg"
           />
-          <div className="mt-14 flex w-full max-w-md flex-col gap-3 sm:mt-6 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
+          <div className="mt-[min(26vh,11rem)] flex w-full max-w-md flex-col gap-3 sm:mt-6 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
             <Button to={ctaPrimaryHref} size="lg" className="w-full sm:w-auto">
               {ctaPrimaryLabel}
             </Button>
