@@ -38,7 +38,7 @@ export default function CategoriesSection({ homepage, categories = [] }) {
       <div
         className={
           compact
-            ? 'mx-auto grid max-w-xl grid-cols-1 justify-items-center gap-4 sm:max-w-2xl sm:grid-cols-2 sm:gap-5'
+            ? 'mx-auto grid max-w-xl grid-cols-1 justify-items-center gap-4 sm:max-w-3xl sm:grid-cols-2 sm:gap-5'
             : 'grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:grid-cols-3'
         }
       >
@@ -53,22 +53,22 @@ export default function CategoriesSection({ homepage, categories = [] }) {
           >
             <Link
               to={tile.to}
-              className="group relative block aspect-[3/4] overflow-hidden border border-border bg-charcoal"
+              className="group relative block aspect-square overflow-hidden border border-border bg-charcoal"
             >
               {tile.image ? (
                 <img
-                  src={cloudinaryUrl(tile.image, { width: 560 })}
+                  src={cloudinaryUrl(tile.image, { width: 720 })}
                   alt={tile.name}
-                  className="absolute left-1/2 top-[44%] h-[62%] w-[62%] -translate-x-1/2 -translate-y-1/2 object-contain object-center transition-transform duration-700 group-hover:scale-105"
+                  className="h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                   loading="lazy"
                   decoding="async"
-                  width={560}
-                  height={747}
+                  width={720}
+                  height={720}
                 />
               ) : (
                 <div className="h-full w-full bg-charcoal" aria-hidden="true" />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5">
                 <h3 className="font-display text-xl text-ivory sm:text-2xl">{tile.name}</h3>
                 {tile.description ? (
