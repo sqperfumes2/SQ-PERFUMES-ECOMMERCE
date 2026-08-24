@@ -28,6 +28,7 @@ async function getSettings() {
         'SQ Perfumes crafts refined perfume oils and eau de parfum for lasting presence.',
       productDeliveryText: '2–4 business days in major cities. COD available.',
       productReturnsText: 'Unopened bottles eligible within 7 days.',
+      paymentMethods: { cod: true, online: true },
     });
   }
   return settings;

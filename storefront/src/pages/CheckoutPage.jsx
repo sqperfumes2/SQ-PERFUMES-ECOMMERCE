@@ -12,6 +12,7 @@ import { formatPrice } from '../lib/format'
 import { useAuthStore, useCartStore } from '../store'
 import { storeApi, getErrorMessage } from '../lib/services'
 import { useStoreSettings } from '../hooks/useStoreSettings'
+import JazzCashDetails from '../components/checkout/JazzCashDetails'
 
 const initialForm = {
   guest: true,
@@ -48,8 +49,8 @@ export default function CheckoutPage() {
   const { settings } = useStoreSettings()
   const cities = settings?.shippingCities || []
   const threshold = settings?.freeShippingThreshold ?? 8000
-  const methods = settings?.paymentMethods || { cod: true, online: false }
-  const canPay = Boolean(methods.cod) || Boolean(methods.online)
+  const methods = settings?.paymentMethods || { cod: true, online: true }
+  const canPay = true
 
   useEffect(() => {
     if (!cities.length) return
@@ -59,10 +60,10 @@ export default function CheckoutPage() {
   }, [cities, form.city])
 
   useEffect(() => {
-    if (!methods.cod && methods.online && form.paymentMethod === 'cod') {
+    if (methods.cod === false && form.paymentMethod === 'cod') {
       setForm((prev) => ({ ...prev, paymentMethod: 'online' }))
     }
-  }, [methods.cod, methods.online, form.paymentMethod])
+  }, [methods.cod, form.paymentMethod])
 
   const cityFee = useMemo(
     () => cities.find((zone) => zone.city === form.city)?.fee ?? 350,
@@ -292,7 +293,7 @@ export default function CheckoutPage() {
                 </span>
               </label>
               {methods.cod !== false ? (
-                <label className="flex min-h-11 items-start gap-3 border border-gold/40 bg-gold/5 p-3">
+                <label className="flex min-h-11 items-start gap-3 border border-border p-3">
                   <input
                     type="radio"
                     name="payment"
@@ -306,8 +307,12 @@ export default function CheckoutPage() {
                   </span>
                 </label>
               ) : null}
-              {methods.online ? (
-                <label className="flex min-h-11 items-start gap-3 border border-border p-3">
+              <div
+                className={`border p-3 ${
+                  form.paymentMethod === 'online' ? 'border-gold/40 bg-gold/5' : 'border-border'
+                }`}
+              >
+                <label className="flex min-h-11 cursor-pointer items-start gap-3">
                   <input
                     type="radio"
                     name="payment"
@@ -315,19 +320,38 @@ export default function CheckoutPage() {
                     onChange={() => update('paymentMethod', 'online')}
                     className="mt-1 accent-gold"
                   />
-                  <span>
-                    <span className="block text-ivory">Online payment</span>
-                    <span className="text-sm text-muted">
-                      We will confirm payment instructions after your order is placed.
+                  <span className="min-w-0 flex-1">
+                    <span className="flex flex-wrap items-center gap-2">
+                      <span className="text-ivory">Online payment — JazzCash</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 180 40"
+                        className="h-6 w-[6.75rem]"
+                        aria-hidden="true"
+                      >
+                        <rect width="180" height="40" rx="8" fill="#E2136E" />
+                        <text
+                          x="90"
+                          y="26.5"
+                          textAnchor="middle"
+                          fill="#ffffff"
+                          fontFamily="Arial Black, Arial, Helvetica, sans-serif"
+                          fontSize="16"
+                          fontWeight="800"
+                        >
+                          JazzCash
+                        </text>
+                      </svg>
+                    </span>
+                    <span className="mt-1 block text-sm text-muted">
+                      Send payment to MUHAMMAD ARSHAD, then WhatsApp the screenshot to 0303 2070201.
                     </span>
                   </span>
                 </label>
-              ) : null}
-              {!methods.cod && !methods.online ? (
-                <p className="text-sm text-muted">
-                  Checkout payments are currently unavailable. Please contact the store.
-                </p>
-              ) : null}
+                {form.paymentMethod === 'online' ? (
+                  <JazzCashDetails total={total} className="mt-3" />
+                ) : null}
+              </div>
             </div>
           </section>
         </div>
@@ -368,7 +392,9 @@ export default function CheckoutPage() {
             {submitting ? 'Placing order...' : 'Place order'}
           </Button>
           <p className="mt-3 hidden text-xs text-muted lg:block">
-            Cash on Delivery orders are paid when the courier arrives.
+            {form.paymentMethod === 'online'
+              ? 'After placing the order, send the JazzCash screenshot on WhatsApp to 0303 2070201.'
+              : 'Cash on Delivery orders are paid when the courier arrives.'}
           </p>
         </aside>
       </form>

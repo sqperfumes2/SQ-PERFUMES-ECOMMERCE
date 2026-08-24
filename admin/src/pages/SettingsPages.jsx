@@ -265,17 +265,18 @@ export function PaymentsPage() {
           </label>
           <label className="flex items-center justify-between gap-3 rounded-lg border border-line p-4">
             <div>
-              <p className="font-medium">Online payment</p>
+              <p className="font-medium">JazzCash (online)</p>
               <p className="text-sm text-muted">
-                Show online payment at checkout. Connect a gateway later to collect card or wallet
-                payments automatically.
+                Shown at checkout. Customers send payment to JazzCash 0300 2676326 (MUHAMMAD
+                ARSHAD), then WhatsApp the screenshot to 0303 2070201.
               </p>
             </div>
             <input
               type="checkbox"
-              checked={Boolean(methods.online)}
-              disabled={saving}
-              onChange={(e) => toggle('online', e.target.checked)}
+              checked
+              disabled
+              readOnly
+              title="JazzCash stays available at checkout"
             />
           </label>
         </div>

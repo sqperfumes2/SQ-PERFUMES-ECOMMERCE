@@ -57,7 +57,7 @@ const storeSettingSchema = new mongoose.Schema(
     },
     paymentMethods: {
       cod: { type: Boolean, default: true },
-      online: { type: Boolean, default: false },
+      online: { type: Boolean, default: true },
     },
     shippingCities: [shippingCitySchema],
     orderSequence: { type: Number, default: 0, min: 0 },

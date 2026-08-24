@@ -5,6 +5,7 @@ import Button from '../components/ui/Button'
 import OrderStatusTracker from '../components/order/OrderStatusTracker'
 import { formatPrice } from '../lib/format'
 import { storeApi } from '../lib/services'
+import JazzCashDetails from '../components/checkout/JazzCashDetails'
 
 export default function OrderSuccessPage() {
   const [params] = useSearchParams()
@@ -56,6 +57,13 @@ export default function OrderSuccessPage() {
             <p>
               <span className="text-ivory">Payment:</span> {snapshot.paymentMethod}
             </p>
+            {snapshot.paymentMethod === 'Online' ? (
+              <JazzCashDetails
+                total={snapshot.total}
+                orderNumber={snapshot.id}
+                className="mt-4"
+              />
+            ) : null}
             <p>
               <span className="text-ivory">Ship to:</span> {snapshot.shippingAddress.area},{' '}
               {snapshot.shippingAddress.city}

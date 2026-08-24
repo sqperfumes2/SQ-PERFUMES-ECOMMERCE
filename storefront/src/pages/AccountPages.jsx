@@ -12,6 +12,7 @@ import { customerAuthApi, getErrorMessage } from '../lib/services'
 import { useAuthStore } from '../store'
 import { Package } from 'lucide-react'
 import OrderStatusTracker from '../components/order/OrderStatusTracker'
+import JazzCashDetails from '../components/checkout/JazzCashDetails'
 
 function useMyOrders() {
   const [orders, setOrders] = useState([])
@@ -288,6 +289,9 @@ export function OrderDetailsPage() {
               <Badge tone="ivory">Payment: {order.paymentStatus}</Badge>
             </div>
             <p className="mt-3">{order.paymentMethod}</p>
+            {order.paymentMethod === 'Online' && order.paymentStatus !== 'Paid' ? (
+              <JazzCashDetails total={order.total} orderNumber={order.id} className="mt-4" />
+            ) : null}
             <div className="mt-5">
               <OrderStatusTracker status={order.status} history={order.statusHistory} />
             </div>
