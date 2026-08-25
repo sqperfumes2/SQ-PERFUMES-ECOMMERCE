@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom'
 import { brand } from '../../lib/brand'
 
 function WhatsAppIcon({ size = 28 }) {
@@ -8,17 +9,25 @@ function WhatsAppIcon({ size = 28 }) {
   )
 }
 
+const ORDER_MESSAGE = 'Assalamualaikum, I would like to place an order from SQ Perfumes.'
+
 export default function FloatingWhatsApp() {
-  const href = brand.contact.whatsappLink || brand.contact.whatsapp
-  if (!href) return null
+  const { pathname } = useLocation()
+  const base = brand.contact.whatsappLink || brand.contact.whatsapp
+  if (!base) return null
+
+  const href = `${base}${base.includes('?') ? '&' : '?'}text=${encodeURIComponent(ORDER_MESSAGE)}`
+  const onCheckout = pathname === '/checkout'
 
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat with SQ Perfumes on WhatsApp"
-      className="fixed bottom-6 right-4 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full border border-gold bg-gold text-ink shadow-gold transition hover:bg-gold-bright sm:bottom-5 sm:right-5 sm:h-16 sm:w-16"
+      aria-label="Place an order on WhatsApp"
+      className={`fixed right-4 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:bg-[#20bd5a] sm:right-5 sm:h-16 sm:w-16 ${
+        onCheckout ? 'bottom-24 lg:bottom-6' : 'bottom-6 sm:bottom-5'
+      }`}
     >
       <WhatsAppIcon />
     </a>
