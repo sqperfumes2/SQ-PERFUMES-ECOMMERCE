@@ -12,8 +12,8 @@ export const brand = {
   contact: {
     email: 'hello@sqperfumes.com',
     phone: '',
-    whatsapp: '03032070201',
-    whatsappLink: 'https://wa.me/923032070201',
+    whatsapp: '03002676326',
+    whatsappLink: 'https://wa.me/923002676326',
     address: 'Pakistan',
   },
   socials: {

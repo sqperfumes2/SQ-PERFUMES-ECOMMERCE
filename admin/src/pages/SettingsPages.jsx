@@ -268,7 +268,7 @@ export function PaymentsPage() {
               <p className="font-medium">JazzCash (online)</p>
               <p className="text-sm text-muted">
                 Shown at checkout. Customers send payment to JazzCash 0300 2676326 (MUHAMMAD
-                ARSHAD), then WhatsApp the screenshot to 0303 2070201.
+                ARSHAD), then WhatsApp the screenshot to 0300 2676326.
               </p>
             </div>
             <input

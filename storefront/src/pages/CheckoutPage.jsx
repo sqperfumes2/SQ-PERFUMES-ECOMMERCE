@@ -344,7 +344,7 @@ export default function CheckoutPage() {
                       </svg>
                     </span>
                     <span className="mt-1 block text-sm text-muted">
-                      Send payment to MUHAMMAD ARSHAD, then WhatsApp the screenshot to 0303 2070201.
+                      Send payment to MUHAMMAD ARSHAD, then WhatsApp the screenshot to 0300 2676326.
                     </span>
                   </span>
                 </label>
@@ -393,7 +393,7 @@ export default function CheckoutPage() {
           </Button>
           <p className="mt-3 hidden text-xs text-muted lg:block">
             {form.paymentMethod === 'online'
-              ? 'After placing the order, send the JazzCash screenshot on WhatsApp to 0303 2070201.'
+              ? 'After placing the order, send the JazzCash screenshot on WhatsApp to 0300 2676326.'
               : 'Cash on Delivery orders are paid when the courier arrives.'}
           </p>
         </aside>

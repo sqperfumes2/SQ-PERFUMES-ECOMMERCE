@@ -24,13 +24,13 @@ export const faqs = [
     id: 'f1',
     question: 'Do you offer Cash on Delivery?',
     answer:
-      'Yes. Cash on Delivery is available across Pakistan. You can also pay online with JazzCash: send the order amount to 0300 2676326 (MUHAMMAD ARSHAD), then WhatsApp the payment screenshot to 0303 2070201.',
+      'Yes. Cash on Delivery is available across Pakistan. You can also pay online with JazzCash: send the order amount to 0300 2676326 (MUHAMMAD ARSHAD), then WhatsApp the payment screenshot to the same number.',
   },
   {
     id: 'f1b',
     question: 'How do I pay with JazzCash?',
     answer:
-      'At checkout choose Online payment — JazzCash. Send the exact order total to 0300 2676326, account name MUHAMMAD ARSHAD. Then send the payment screenshot on WhatsApp to 0303 2070201 with your order number. We confirm the order after the screenshot is received.',
+      'At checkout choose Online payment — JazzCash. Send the exact order total to 0300 2676326, account name MUHAMMAD ARSHAD. Then send the payment screenshot on WhatsApp to 0300 2676326 with your order number. We confirm the order after the screenshot is received.',
   },
   {
     id: 'f2',

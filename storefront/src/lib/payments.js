@@ -2,9 +2,9 @@ export const jazzCash = {
   accountName: 'MUHAMMAD ARSHAD',
   accountNumber: '03002676326',
   accountNumberDisplay: '0300 2676326',
-  screenshotPhone: '03032070201',
-  screenshotPhoneDisplay: '0303 2070201',
-  screenshotWhatsApp: 'https://wa.me/923032070201',
+  screenshotPhone: '03002676326',
+  screenshotPhoneDisplay: '0300 2676326',
+  screenshotWhatsApp: 'https://wa.me/923002676326',
 }
 
 export function jazzCashWhatsAppHref(orderNumber, totalLabel) {
