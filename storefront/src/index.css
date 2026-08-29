@@ -16,6 +16,7 @@
 
   --font-display: "Cinzel", ui-serif, Georgia, serif;
   --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-urdu: "Noto Naskh Arabic", "Nirmala UI", "Segoe UI", sans-serif;
 
   --shadow-gold: 0 0 0 1px rgba(201, 162, 39, 0.35);
 
@@ -84,6 +85,10 @@
 @layer utilities {
   .font-display {
     font-family: var(--font-display);
+  }
+
+  .font-urdu {
+    font-family: var(--font-urdu);
   }
 
   .text-balance {
