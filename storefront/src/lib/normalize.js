@@ -1,9 +1,22 @@
+export function normalizeImage(image) {
+  if (!image) return ''
+  if (typeof image === 'object') {
+    return String(image.url || image.secure_url || image.src || '').trim()
+  }
+  return String(image).trim()
+}
+
+export function normalizeImages(images) {
+  if (!Array.isArray(images)) return []
+  return images.map(normalizeImage).filter(Boolean)
+}
+
 export function normalizeProduct(product) {
   if (!product) return null
   return {
     ...product,
     id: product._id || product.id,
-    images: product.images?.length ? product.images : ['/favicon.jpeg'],
+    images: normalizeImages(product.images),
     topNotes: product.topNotes || [],
     middleNotes: product.middleNotes || [],
     baseNotes: product.baseNotes || [],

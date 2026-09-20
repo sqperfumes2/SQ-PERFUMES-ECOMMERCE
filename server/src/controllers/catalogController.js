@@ -7,27 +7,28 @@ const { ApiError } = require('../utils/ApiError');
 const { listProducts } = require('../services/productService');
 const { getSettings } = require('../services/orderService');
 const { logActivity } = require('../utils/activity');
+const { withPublicImages, withPublicImageField } = require('../utils/media');
 
 const getProducts = asyncHandler(async (req, res) => {
   const result = await listProducts(req.query, { admin: false });
-  sendSuccess(res, { data: result.items, meta: result.meta });
+  sendSuccess(res, { data: result.items.map((item) => withPublicImages(item, req)), meta: result.meta });
 });
 
 const getAdminProducts = asyncHandler(async (req, res) => {
   const result = await listProducts(req.query, { admin: true });
-  sendSuccess(res, { data: result.items, meta: result.meta });
+  sendSuccess(res, { data: result.items.map((item) => withPublicImages(item, req)), meta: result.meta });
 });
 
 const getProductBySlug = asyncHandler(async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug, status: 'active' });
   if (!product) throw new ApiError(404, 'Product not found');
-  sendSuccess(res, { data: product });
+  sendSuccess(res, { data: withPublicImages(product, req) });
 });
 
 const getProductById = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
   if (!product) throw new ApiError(404, 'Product not found');
-  sendSuccess(res, { data: product });
+  sendSuccess(res, { data: withPublicImages(product, req) });
 });
 
 const createProduct = asyncHandler(async (req, res) => {
@@ -180,7 +181,7 @@ const setSoldOut = asyncHandler(async (req, res) => {
 const listCategories = asyncHandler(async (req, res) => {
   const filter = req.userType === 'admin' ? {} : { status: 'active' };
   const categories = await Category.find(filter).sort({ sortOrder: 1, name: 1 });
-  sendSuccess(res, { data: categories });
+  sendSuccess(res, { data: categories.map((category) => withPublicImageField(category, req)) });
 });
 
 const upsertCategory = asyncHandler(async (req, res) => {

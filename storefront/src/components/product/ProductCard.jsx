@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Heart, Eye } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -9,9 +9,17 @@ import { cloudinaryUrl } from '../../lib/cloudinary'
 import { useWishlistStore } from '../../store'
 
 export default function ProductCard({ product, onQuickView }) {
+  const imgRef = useRef(null)
+  const src = cloudinaryUrl(product.images?.[0], { width: 600 })
   const [imgLoaded, setImgLoaded] = useState(false)
   const toggleWishlist = useWishlistStore((s) => s.toggle)
   const inWishlist = useWishlistStore((s) => s.ids.includes(product.id))
+
+  useEffect(() => {
+    setImgLoaded(false)
+    const el = imgRef.current
+    if (el?.complete && el.naturalWidth > 0) setImgLoaded(true)
+  }, [src])
 
   const price = getLowestPrice(product)
   const saleVariant = product.variants.find((v) => v.compareAtPrice)
@@ -31,15 +39,19 @@ export default function ProductCard({ product, onQuickView }) {
     <article className="group relative flex flex-col overflow-hidden border border-border bg-charcoal transition-colors hover:border-gold/50">
       <Link to={`/product/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-elevated">
         {!imgLoaded ? <div className="absolute inset-0 animate-pulse bg-elevated" /> : null}
-        <img
-          src={cloudinaryUrl(product.images[0], { width: 600 })}
-          alt={`${product.name} by SQ Perfumes`}
-          loading="lazy"
-          width={600}
-          height={750}
-          onLoad={() => setImgLoaded(true)}
-          className={`h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
-        />
+        {src ? (
+          <img
+            ref={imgRef}
+            src={src}
+            alt={`${product.name} by SQ Perfumes`}
+            loading="lazy"
+            width={600}
+            height={750}
+            onLoad={() => setImgLoaded(true)}
+            onError={() => setImgLoaded(false)}
+            className={`h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
+          />
+        ) : null}
         <div className="absolute left-2 top-2 flex max-w-[70%] flex-col gap-1.5 sm:left-3 sm:top-3 sm:gap-2">
           {product.newArrival ? <Badge>New</Badge> : null}
           {product.bestSeller ? <Badge tone="ivory">Popular</Badge> : null}

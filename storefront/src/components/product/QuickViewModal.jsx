@@ -44,7 +44,7 @@ export default function QuickViewModal({ product, open, onClose }) {
       <div className="grid gap-6 md:grid-cols-2">
         <div className="aspect-[4/5] overflow-hidden border border-border bg-elevated">
           <img
-            src={cloudinaryUrl(product.images[0], { width: 720 })}
+            src={cloudinaryUrl(product.images?.[0], { width: 720 })}
             alt={product.name}
             className="h-full w-full object-cover"
           />

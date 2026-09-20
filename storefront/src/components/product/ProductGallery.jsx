@@ -6,7 +6,13 @@ export default function ProductGallery({ images = [], name }) {
   const [active, setActive] = useState(0)
   const [zoomed, setZoomed] = useState(false)
 
-  if (!images.length) return null
+  if (!images.length) {
+    return (
+      <div className="mx-auto w-full max-w-md lg:mx-0 lg:max-w-lg">
+        <div className="aspect-[4/5] w-full border border-border bg-elevated" aria-hidden="true" />
+      </div>
+    )
+  }
 
   return (
     <div className="mx-auto w-full max-w-md lg:mx-0 lg:max-w-lg">

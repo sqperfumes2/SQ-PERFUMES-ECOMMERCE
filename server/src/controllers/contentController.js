@@ -10,6 +10,7 @@ const { getSettings } = require('../services/orderService');
 const { getDashboardAnalytics } = require('../services/analyticsService');
 const { saveUploadedImage } = require('../middleware/upload');
 const { logActivity } = require('../utils/activity');
+const { absolutizeMediaUrl, withPublicImageField } = require('../utils/media');
 const StoreSetting = require('../models/StoreSetting');
 
 const DEFAULT_HOMEPAGE = {
@@ -29,15 +30,20 @@ const DEFAULT_HOMEPAGE = {
   showFeaturedSection: false,
 };
 
-function normalizeHomepage(homepage) {
+function normalizeHomepage(homepage, req) {
   const raw = homepage?.toObject ? homepage.toObject() : homepage || {};
-  return {
+  const origin = req ? `${req.protocol}://${req.get('host')}` : '';
+  const next = {
     ...DEFAULT_HOMEPAGE,
     ...raw,
     showBestSellersSection: Boolean(raw.showBestSellersSection),
     showNewArrivalsSection: Boolean(raw.showNewArrivalsSection),
     showFeaturedSection: Boolean(raw.showFeaturedSection),
   };
+  for (const field of ['image', 'shopAllImage', 'bestSellersImage']) {
+    next[field] = absolutizeMediaUrl(next[field], origin);
+  }
+  return next;
 }
 
 function coerceBool(value, fallback = false) {
@@ -128,7 +134,7 @@ const getPublicSettings = asyncHandler(async (req, res) => {
         settings.productReturnsText || 'Unopened bottles eligible within 7 days.',
       paymentMethods: settings.paymentMethods,
       shippingCities: settings.shippingCities.filter((c) => c.active),
-      homepage: normalizeHomepage(settings.homepage),
+      homepage: normalizeHomepage(settings.homepage, req),
     },
   });
 });
@@ -138,8 +144,8 @@ const getHomepage = asyncHandler(async (req, res) => {
   const categories = await Category.find({ status: 'active' }).sort({ sortOrder: 1, name: 1 });
   sendSuccess(res, {
     data: {
-      homepage: normalizeHomepage(settings.homepage),
-      categories,
+      homepage: normalizeHomepage(settings.homepage, req),
+      categories: categories.map((category) => withPublicImageField(category, req)),
     },
   });
 });
@@ -177,8 +183,8 @@ const updateHomepage = asyncHandler(async (req, res) => {
   sendSuccess(res, {
     message: 'Homepage media saved',
     data: {
-      homepage: normalizeHomepage(settings.homepage),
-      categories,
+      homepage: normalizeHomepage(settings.homepage, req),
+      categories: categories.map((category) => withPublicImageField(category, req)),
     },
   });
 });

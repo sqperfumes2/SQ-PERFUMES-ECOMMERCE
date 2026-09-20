@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { getVariantPrice } from '../lib/format'
+import { mediaUrl } from '../lib/cloudinary'
 
 const DEFAULT_SHIPPING_FEE = 250
 const DEFAULT_FREE_SHIPPING = 8000
@@ -29,7 +30,7 @@ export const useCartStore = create(
             productId: product.id,
             slug: product.slug,
             name: product.name,
-            image: product.images[0],
+            image: mediaUrl(product.images?.[0]),
             size: variant.size,
             sku: variant.sku,
             price: getVariantPrice(variant),

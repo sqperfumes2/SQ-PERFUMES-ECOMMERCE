@@ -9,6 +9,7 @@ import EmptyState from '../components/ui/EmptyState'
 import Input from '../components/ui/Input'
 import Seo from '../components/seo/Seo'
 import { formatPrice } from '../lib/format'
+import { cloudinaryUrl } from '../lib/cloudinary'
 import { useCartStore } from '../store'
 import { storeApi, getErrorMessage } from '../lib/services'
 import { useStoreSettings } from '../hooks/useStoreSettings'
@@ -98,7 +99,11 @@ export default function CartPage() {
               className="grid grid-cols-[72px_1fr] gap-3 border border-border p-3 sm:grid-cols-[96px_1fr_auto] sm:gap-4 sm:p-4"
             >
               <Link to={`/product/${item.slug}`} className="aspect-square overflow-hidden bg-elevated">
-                <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+                <img
+                  src={cloudinaryUrl(item.image, { width: 200 })}
+                  alt={item.name}
+                  className="h-full w-full object-cover"
+                />
               </Link>
               <div className="min-w-0">
                 <Link
